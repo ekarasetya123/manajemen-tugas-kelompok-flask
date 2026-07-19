@@ -6,6 +6,7 @@ from routes.dashboard import dashboard_bp
 from routes.tugas import tugas_bp
 from routes.anggota import anggota_bp
 from routes.main import main_bp
+from routes.progress import progress_bp
 from flask_login import LoginManager
 from datetime import datetime, timedelta
 
@@ -30,6 +31,7 @@ def create_app(config_class=Config):
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(tugas_bp)
     app.register_blueprint(anggota_bp)
+    app.register_blueprint(progress_bp)
 
     # Create tables, admin user, and seed data
     with app.app_context():
