@@ -22,13 +22,12 @@
     </form>
 </div>
 
-{% regroup tasks by mata_kuliah as grouped %}
-{% for group in grouped %}
+{% for matkul, tasks in matkul_groups %}
 <div class="tab-folder">
-    <h2>{{ group.grouper.nama_matkul }}</h2>
+    <h2>{{ matkul.nama_matkul }}</h2>
 </div>
 <div class="matkul-tasks">
-    {% for t in group.list %}
+    {% for t in tasks %}
     <div class="task-card">
         <h3>{{ t.judul_tugas }}</h3>
         <p><strong>Deadline:</strong> {{ t.deadline.strftime('%d-%m-%Y') if t.deadline else '-' }}</p>
@@ -41,7 +40,7 @@
             {% for p in t.pembagian %}
             <li>
                 {{ p.anggota.nama }} ({{ p.anggota.nim }}):
-                {% if p.bagian_kerja %}{{ p.bagian_kerja }}{% else ---%}{% endif %}
+                {% if p.bagian_kerja %}{{ p.bagian_kerja }}{% else %}---{% endif %}
                 <span class="badge status-{{ p.status_bagian }}">{{ p.status_bagian|capitalize }}</span>
             </li>
             {% endfor %}
