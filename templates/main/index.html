@@ -7,6 +7,7 @@
         <p>Aplikasi ini membantu ketua kelompok mengelola pembagian tugas per mata kuliah, melacak deadline, dan memantau progres pengerjaan oleh anggota kelompok.</p>
         <div class="btn-group">
             <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Masuk sebagai Admin</a>
+            <a href="{{ url_for('progress.index') }}" class="btn btn-success">Lihat Progress Tugas</a>
             <a href="#" class="btn btn-secondary">About</a>
         </div>
     </div>
@@ -59,6 +60,13 @@
 }
 .btn-primary:hover {
     background-color: #a0522d;
+}
+.btn-success {
+    background-color: var(--daun-pisang-muda);
+    color: var(--putih);
+}
+.btn-success:hover {
+    background-color: #6d8e62;
 }
 .btn-secondary {
     background-color: #6c757d;
