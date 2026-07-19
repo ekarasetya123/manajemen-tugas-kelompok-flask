@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_user, logout_user, login_required, current_user
 from models import db, User
 from werkzeug.security import check_password_hash
@@ -37,5 +37,7 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     flash('Anda telah keluar.', 'info')
-    logout_user()
+    # manually remove user_id
+    session.pop('_user_id', None)
+    # also remove the 'remember' token if needed? For simplicity, rely on login_manager
     return redirect(url_for('main.index'))
