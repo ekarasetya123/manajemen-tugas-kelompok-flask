@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Beranda - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="landing-container">
+    <div class="landing-content">
+        <h1>Selamat Datang di Sistem Manajemen Tugas Kelompok</h1>
+        <p>Aplikasi ini membantu ketua kelompok mengelola pembagian tugas per mata kuliah, melacak deadline, dan memantau progres pengerjaan oleh anggota kelompok.</p>
+        <div class="btn-group">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Masuk sebagai Admin</a>
+            <a href="#" class="btn btn-secondary">About</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_css %}
+<style>
+.landing-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--kertas-kopi);
+}
+.landing-content {
+    text-align: center;
+    padding: 20px;
+    background: var(--putih);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 90%;
+}
+.landing-content h1 {
+    color: var(--kayu-jati-tua);
+    margin-bottom: 20px;
+    font-family: 'Cinzel Decorative', serif;
+}
+.landing-content p {
+    color: var(--arang);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+.btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+.btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.btn-primary {
+    background-color: var(--kayu-jati-tua);
+    color: var(--putih);
+}
+.btn-primary:hover {
+    background-color: #a0522d;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: var(--putih);
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+</style>
+{% endblock %}

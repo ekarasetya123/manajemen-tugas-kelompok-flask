@@ -3,7 +3,7 @@ from flask_login import login_required
 from models import db, MataKuliah, Tugas, Anggota, PembagianTugas
 from datetime import datetime, timedelta
 
-dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/')
+dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 @dashboard_bp.route('/')
 @login_required

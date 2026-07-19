@@ -24,9 +24,11 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
-            login_user(user)
+            login_user(user, remember=bool(request.form.get('remember')))
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('dashboard.index'))
+            if not next_page or not next_page.startswith('/'):
+                next_page = url_for('dashboard.index')
+            return redirect(next_page)
         else:
             flash('Username atau password salah.', 'danger')
     return render_template('auth/login.html')
