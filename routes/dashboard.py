@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
-from ..models import db, MataKuliah, Tugas, Anggota, PembagianTugas
+from models import db, MataKuliah, Tugas, Anggota, PembagianTugas
 from datetime import datetime, timedelta
 
 dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/')

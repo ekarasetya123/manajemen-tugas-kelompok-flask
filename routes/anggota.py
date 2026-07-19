@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required
-from ..models import db, Anggota
+from models import db, Anggota
 
 anggota_bp = Blueprint('anggota', __name__, url_prefix='/anggota')
 
