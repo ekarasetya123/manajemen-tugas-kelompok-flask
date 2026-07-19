@@ -37,5 +37,5 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     flash('Anda telah keluar.', 'info')
-    session.pop('_user_id', None)
+    logout_user()
     return redirect(url_for('main.index'))
