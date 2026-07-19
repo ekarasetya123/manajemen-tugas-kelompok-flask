@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Tentang Aplikasi - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="container" style="max-width: 800px; margin-top: 40px;">
+    <h1>Tentang Aplikasi</h1>
+    <p><strong>Nama Aplikasi:</strong> Manajemen Tugas Kelompok</p>
+    <p><strong>Tujuan:</strong> Aplikasi ini dibuat untuk memenuhi tugas mata kuliah Pengantar Pemrograman. Bertujuan membantu ketua kelompok mengelola pembagian tugas per mata kuliah, melacak deadline, dan memantau progres pengerjaan oleh anggota kelompok.</p>
+    <p><strong>Dibuat oleh:</strong> Eka Prasetya Wardana, NIM 301250023</p>
+    <p><strong>Teknologi yang digunakan:</strong></p>
+    <ul>
+        <li>Backend: Python Flask, Flask-Login, Flask-SQLAlchemy, Flask-Migrate</li>
+        <li>Database: SQLite (default), dapat diganti ke MySQL/PostgreSQL melalui variabel lingkungan DATABASE_URL</li>
+        <li>Frontend: HTML5, CSS3 (custom), JavaScript minima (Chart.js untuk diagram)</li>
+    </ul>
+    <p>Aplikasi ini dilisensikan di bawah Lisensi MIT.</p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Kembali ke Beranda</a>
+</div>
+{% endblock %}

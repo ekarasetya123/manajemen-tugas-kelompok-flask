@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required
 from models import db, Tugas, MataKuliah, PembagianTugas, Anggota
+from collections import defaultdict
 
 progress_bp = Blueprint('progress', __name__, url_prefix='/progress')
 
@@ -25,11 +26,18 @@ def index():
         done = sum(1 for p in t.pembagian if p.status_bagian == 'selesai')
         t.progress = (done / total * 100) if total > 0 else 0
 
+    # Group tasks by mata kuliah
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for t in tugas_list:
+        groups[t.mata_kuliah].append(t)
+    matkul_groups = [(matkul, tasks) for matkul, tasks in groups.items()]
+
     # Get all mata kuliah for filter dropdown
     mata_kuliah_list = MataKuliah.query.order_by(MataKuliah.nama_matkul).all()
 
     return render_template('progress/index.html',
-                           tasks=tugas_list,
+                           matkul_groups=matkul_groups,
                            mata_kuliah_list=mata_kuliah_list,
                            selected_matkul=matkul_id,
                            selected_status=status)
