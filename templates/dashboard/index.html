@@ -24,17 +24,9 @@
         <p class="big-number success">{{ tugas_selesai }}</p>
     </div>
     <div class="card stat-card">
-        <h3>Deadline Mendekat (< 3 hari)</h3>
-        <p class="big-number danger">{{ tugas_deadline_soon }}</p>
-    </div>
-
-    <!-- Chart -->
-    <div class="card chart-card">
         <h3>Distribusi Status Tugas</h3>
         <canvas id="statusChart" width="400" height="200"></canvas>
     </div>
-
-    <!-- Recent Tasks -->
     <div class="card full-width">
         <h3>Tugas Terbaru</h3>
         {% if recent_tugas %}
@@ -63,13 +55,14 @@
         {% endif %}
     </div>
 </div>
-
+{% endblock %}
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('statusChart').getContext('2d');
     const statusData = {{ status_data|tojson }};
+    console.log('statusData:', statusData);
     new Chart(ctx, {
         type: 'pie',
         data: {
@@ -91,5 +84,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-{% endblock %}
 {% endblock %}
