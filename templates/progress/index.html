@@ -33,7 +33,7 @@
         <p><strong>Deadline:</strong> {{ t.deadline.strftime('%d-%m-%Y') if t.deadline else '-' }}</p>
         <span class="badge status-{{ t.status }} badge-stempel">{{ t.status|capitalize }}</span>
         <div class="progress-container">
-            <div class="progress-bar" data-width="{{ t.progress }}%" style="width: {{ t.progress }}%;"></div>
+            <div class="progress-bar bg-{{ t.status }}" data-width="{{ t.progress }}%" style="width: {{ t.progress }}%;"></div>
         </div>
         <h4>Anggota yang Bekerja:</h4>
         <ul>
