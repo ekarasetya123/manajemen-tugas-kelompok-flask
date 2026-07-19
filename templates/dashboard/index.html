@@ -61,8 +61,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('statusChart').getContext('2d');
-    const statusData = {{ status_data|tojson }};
-    console.log('statusData:', statusData);
+    const status_data = {{ status_data|tojson }};
+    console.log('status_data:', status_data);
     new Chart(ctx, {
         type: 'pie',
         data: {
