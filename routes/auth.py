@@ -36,6 +36,7 @@ def login():
 
 @auth_bp.route('/logout')
 def logout():
+    flash('Ini adalah tes flash', 'info')
     flash('Anda telah keluar.', 'info')
     # manually remove user_id
     session.pop('_user_id', None)
