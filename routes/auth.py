@@ -25,6 +25,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             login_user(user, remember=bool(request.form.get('remember')))
+            flash('Selamat datang kembali!', 'success')
             next_page = request.args.get('next')
             if not next_page or not next_page.startswith('/'):
                 next_page = url_for('dashboard.index')
