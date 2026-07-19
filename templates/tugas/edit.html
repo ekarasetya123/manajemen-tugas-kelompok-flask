@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Edit Tugas - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Edit Tugas</h1>
+    <a href="{{ url_for('tugas.index') }}" class="btn btn-secondary">← Kembali ke Daftar</a>
+</div>
+
+<form method="post" class="form-edit">
+    <div class="form-group">
+        <label for="judul_tugas">Judul Tugas *</label>
+        <input type="text" id="judul_tugas" name="judul_tugas" value="{{ tugas.judul_tugas }}" required maxlength="200">
+    </div>
+
+    <div class="form-group">
+        <label for="deskripsi">Deskripsi</label>
+        <textarea id="deskripsi" name="deskripsi" rows="4">{{ tugas.deskripsi }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="deadline">Deadline (tanggal)</label>
+        <input type="date" id="deadline" name="deadline" value="{{ tugas.deadline.strftime('%Y-%m-%d') if tugas.deadline }}">
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+            <option value="belum" {% if tugas.status == 'belum' %}selected{% endif %}>Belum</option>
+            <option value="proses" {% if tugas.status == 'proses' %}selected{% endif %}>Proses</option>
+            <option value="selesai" {% if tugas.status == 'selesai' %}selected{% endif %}>Selesai</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="matkul_id">Mata Kuliah *</label>
+        <select id="matkul_id" name="matkul_id" required>
+            <option value="">-- Pilih Mata Kuliah --</option>
+            {% for m in matkul_list %}
+            <option value="{{ m.id }}" {% if m.id == tugas.matkul_id %}selected{% endif %}>{{ m.nama_matkul }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+</form>
+{% endblock %}

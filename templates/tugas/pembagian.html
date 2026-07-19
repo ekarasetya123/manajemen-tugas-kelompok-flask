@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Pembagian Tugas - {{ tugas.judul_tugas }} - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Pembagian Tugas: {{ tugas.judul_tugas }}</h1>
+    <p><strong>Mata Kuliah:</strong> {{ tugas.mata_kuliah.nama_matkul }}</p>
+    <p><strong>Deadline:</strong> {{ tugas.deadline.strftime('%d-%m-%Y') if tugas.deadline else '-' }}</p>
+    <a href="{{ url_for('tugas.index') }}" class="btn btn-secondary">← Kembali ke Daftar Tugas</a>
+</div>
+
+<form method="post" class="form-pembagian">
+    <fieldset>
+        <legend>Pilih Anggota dan Tentukan Bagian Kerja</legend>
+        {% for a in anggota_list %}
+        <div class="assignment-item">
+            <label>
+                <input type="checkbox" name="anggota_id" value="{{ a.id }}"
+                       {% if current.get(a.id) %}checked{% endif %}>
+                {{ a.nama }} ({{ a.nim }})
+            </label>
+            <div class="assignment-details">
+                <label for="bagian_{{ a.id }}">Bagian Kerja:</label>
+                <input type="text" id="bagian_{{ a.id }}" name="bagian_{{ a.id }}"
+                       value="{% if current.get(a.id) %}{{ current[a.id].bagian_kerja }}{% endif %}">
+                <label for="status_{{ a.id }}">Status Bagian:</label>
+                <select id="status_{{ a.id }}" name="status_{{ a.id }}">
+                    <option value="belum" {% if not current.get(a.id) or current[a.id].status_bagian == 'belum' %}selected{% endif %}>Belum</option>
+                    <option value="proses" {% if current.get(a.id) and current[a.id].status_bagian == 'proses' %}selected{% endif %}>Proses</option>
+                    <option value="selesai" {% if current.get(a.id) and current[a.id].status_bagian == 'selesai' %}selected{% endif %}>Selesai</option>
+                </select>
+            </div>
+        </div>
+        {% endfor %}
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">Simpan Pembagian</button>
+</form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Login Admin - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Login Admin</h2>
+        <form method="post" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="remember" value="1">
+                    Ingat saya
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+        </form>
+        <p class="auth-note">Username default: admin<br>Password default: admin123 (ubah setelah pertama kali login)</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Daftar Tugas - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Daftar Tugas</h1>
+    <a href="{{ url_for('tugas.tambah') }}" class="btn btn-primary">+ Tambah Tugas</a>
+</div>
+
+<!-- Filter Form -->
+<form method="get" class="filter-form">
+    <label for="matkul_id">Mata Kuliah:</label>
+    <select name="matkul_id" id="matkul_id">
+        <option value="">-- Semua Mata Kuliah --</option>
+        {% for m in matkul_list %}
+        <option value="{{ m.id }}" {% if m.id == selected_matkul %}selected{% endif %}>{{ m.nama_matkul }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+        <option value="">-- Semua Status --</option>
+        <option value="belum" {% if selected_status == 'belum' %}selected{% endif %}>Belum</option>
+        <option value="proses" {% if selected_status == 'proses' %}selected{% endif %}>Proses</option>
+        <option value="selesai" {% if selected_status == 'selesai' %}selected{% endif %}>Selesai</option>
+    </select>
+
+    <button type="submit" class="btn btn-filter">Filter</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Judul Tugas</th>
+            <th>Mata Kuliah</th>
+            <th>Deadline</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if tugas_list %}
+        {% for t in tugas_list %}
+        <tr>
+            <td>{{ t.judul_tugas }}</td>
+            <td>{{ t.mata_kuliah.nama_matkul }}</td>
+            <td>{{ t.deadline.strftime('%d-%m-%Y') if t.deadline else '-' }}</td>
+            <td><span class="badge status-{{ t.status }}">{{ t.status|capitalize }}</span></td>
+            <td class="actions">
+                <a href="{{ url_for('tugas.edit', id=t.id) }}" class="btn btn-sm btn-edit">Edit</a>
+                <form action="{{ url_for('tugas.hapus', id=t.id) }}" method="post" style="display:inline;" onsubmit="return confirm('Hapus tugas \"{{ t.judul_tugas }}\"?');">
+                    <button type="submit" class="btn btn-sm btn-delete">Hapus</button>
+                </form>
+                <a href="{{ url_for('tugas.pembagian', id=t.id) }}" class="btn btn-sm btn-assign">Assign</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5" class="empty-state">Belum ada tugas. Silakan tambah tugas pertama.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

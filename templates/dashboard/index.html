@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="dashboard-grid">
+    <!-- Summary Cards -->
+    <div class="card stat-card">
+        <h3>Total Tugas</h3>
+        <p class="big-number">{{ total_tugas }}</p>
+    </div>
+    <div class="card stat-card">
+        <h3>Total Anggota</h3>
+        <p class="big-number">{{ total_anggota }}</p>
+    </div>
+    <div class="card stat-card">
+        <h3>Tugas Belum</h3>
+        <p class="big-number warning">{{ tugas_belum }}</p>
+    </div>
+    <div class="card stat-card">
+        <h3>Tugas Proses</h3>
+        <p class="big-number info">{{ tugas_proses }}</p>
+    </div>
+    <div class="card stat-card">
+        <h3>Tugas Selesai</h3>
+        <p class="big-number success">{{ tugas_selesai }}</p>
+    </div>
+    <div class="card stat-card">
+        <h3>Deadline Mendekat (< 3 hari)</h3>
+        <p class="big-number danger">{{ tugas_deadline_soon }}</p>
+    </div>
+
+    <!-- Chart -->
+    <div class="card chart-card">
+        <h3>Distribusi Status Tugas</h3>
+        <canvas id="statusChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Recent Tasks -->
+    <div class="card full-width">
+        <h3>Tugas Terbaru</h3>
+        {% if recent_tugas %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Mata Kuliah</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in recent_tugas %}
+                <tr>
+                    <td>{{ t.judul_tugas }}</td>
+                    <td>{{ t.mata_kuliah.nama_matkul }}</td>
+                    <td>{{ t.deadline.strftime('%d-%m-%Y') if t.deadline else '-' }}</td>
+                    <td><span class="badge status-{{ t.status }}">{{ t.status|capitalize }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-state">Belum ada tugas.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    const statusData = {{ status_data|tojson }};
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Belum', 'Proses', 'Selesai'],
+            datasets: [{
+                data: [status_data.belum, status_data.proses, status_data.selesai],
+                backgroundColor: ['#D2691E', '#A0522D', '#8FBC8F'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

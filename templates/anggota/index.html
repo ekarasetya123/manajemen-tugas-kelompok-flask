@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Daftar Anggota - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Daftar Anggota</h1>
+    <a href="{{ url_for('anggota.tambah') }}" class="btn btn-primary">+ Tambah Anggota</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Kontak</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if anggota_list %}
+        {% for a in anggota_list %}
+        <tr>
+            <td>{{ a.nama }}</td>
+            <td>{{ a.nim }}</td>
+            <td>{{ a.kontak or '-' }}</td>
+            <td class="actions">
+                <a href="{{ url_for('anggota.edit', id=a.id) }}" class="btn btn-sm btn-edit">Edit</a>
+                <form action="{{ url_for('anggota.hapus', id=a.id) }}" method="post" style="display:inline;" onsubmit="return confirm('Hapus anggota \"{{ a.nama }}\"?');">
+                    <button type="submit" class="btn btn-sm btn-delete">Hapus</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4" class="empty-state">Belum ada anggota. Silakan tambah anggota pertama.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}
