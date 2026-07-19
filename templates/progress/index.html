@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Progress Tugas - Manajemen Tugas Kelompok{% endblock %}
+{% block content %}
+<div class="filter-bar">
+    <form method="get" action="{{ url_for('progress.index') }}">
+        <label for="matkul_id">Mata Kuliah:</label>
+        <select name="matkul_id" id="matkul_id">
+            <option value="">-- Semua Mata Kuliah --</option>
+            {% for mk in mata_kuliah_list %}
+            <option value="{{ mk.id }}" {% if mk.id == selected_matkul %}selected{% endif %}>{{ mk.nama_matkul }}</option>
+            {% endfor %}
+        </select>
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+            <option value="">-- Semua Status --</option>
+            <option value="belum" {% if selected_status == 'belum' %}selected{% endif %}>Belum</option>
+            <option value="proses" {% if selected_status == 'proses' %}selected{% endif %}>Proses</option>
+            <option value="selesai" {% if selected_status == 'selesai' %}selected{% endif %}>Selesai</option>
+        </select>
+        <button type="submit">Filter</button>
+        <a href="{{ url_for('progress.index') }}" class="btn btn-secondary">Reset</a>
+    </form>
+</div>
+
+{% regroup tasks by mata_kuliah as grouped %}
+{% for group in grouped %}
+<div class="tab-folder">
+    <h2>{{ group.grouper.nama_matkul }}</h2>
+</div>
+<div class="matkul-tasks">
+    {% for t in group.list %}
+    <div class="task-card">
+        <h3>{{ t.judul_tugas }}</h3>
+        <p><strong>Deadline:</strong> {{ t.deadline.strftime('%d-%m-%Y') if t.deadline else '-' }}</p>
+        <span class="badge status-{{ t.status }} badge-stempel">{{ t.status|capitalize }}</span>
+        <div class="progress-container">
+            <div class="progress-bar" style="width: {{ t.progress }}%;"></div>
+        </div>
+        <h4>Anggota yang Bekerja:</h4>
+        <ul>
+            {% for p in t.pembagian %}
+            <li>
+                {{ p.anggota.nama }} ({{ p.anggota.nim }}):
+                {% if p.bagian_kerja %}{{ p.bagian_kerja }}{% else ---%}{% endif %}
+                <span class="badge status-{{ p.status_bagian }}">{{ p.status_bagian|capitalize }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}
