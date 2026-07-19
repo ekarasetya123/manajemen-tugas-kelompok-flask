@@ -25,7 +25,9 @@
     </div>
     <div class="card stat-card">
         <h3>Distribusi Status Tugas</h3>
-        <canvas id="statusChart" width="400" height="200"></canvas>
+        <div class="chart-container" style="height: 350px;">
+            <canvas id="statusChart"></canvas>
+        </div>
     </div>
     <div class="card full-width">
         <h3>Tugas Terbaru</h3>
@@ -75,9 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'bottom',
+                    position: 'right',
                 }
             }
         }

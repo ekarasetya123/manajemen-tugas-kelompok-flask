@@ -219,7 +219,8 @@ body {
     text-align: left;
 }
 .table th {
-    background-color: #f2f2f2;
+    background-color: var(--kayu-jati-tua);
+    color: var(--putih);
     font-weight: 600;
 }
 .table tbody tr:hover {
