@@ -34,6 +34,8 @@ body {
     position: fixed;
     height: 100vh;
     overflow-y: auto;
+    left: 0;
+    transition: left 0.3s ease;
 }
 .sidebar-header h1 {
     font-family: 'Cinzel Decorative', serif;
@@ -77,6 +79,7 @@ body {
     margin-left: 240px;
     padding: 20px;
     max-width: 1200px;
+    transition: margin-left 0.3s ease;
 }
 .page-header {
     margin-bottom: 20px;
@@ -258,9 +261,9 @@ body {
     font-weight: 600;
     text-transform: capitalize;
 }
-.badge-belum { background-color: #fff3e0; color: #e65100; border: 1px dashed #ff9800; }
-.badge-proses { background-color: #e8f5e9; color: #2e7d32; border: 1px dashed #66bb6a; }
-.badge-selesai { background-color: #e3f2fd; color: #1565c0; border: 1px dashed #42a5f5; }
+.badge-belum { background-color: #6c757d; color: #fff; border: 1px dashed #6c757d; }
+.badge-proses { background-color: #D9A441; color: #fff; border: 1px dashed #D9A441; }
+.badge-selesai { background-color: #7A8B4E; color: #fff; border: 1px dashed #7A8B4E; }
 .badge-status {
     border-style: dashed;
 }
@@ -342,8 +345,7 @@ body {
 .badge-stempel {
     display: inline-block;
     padding: 6px 12px;
-    background-color: var(--daun-pisang-muda);
-    color: #fff;
+    /* background-color removed to let status colors show through */
     font-weight: bold;
     border: 2px dashed var(--daun-jati-kering);
     border-radius: 0 0 8px 0; /* asymmetrical */
@@ -374,9 +376,14 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
     .sidebar {
-        width: 60px;
+        left: -240px; /* hidden by default */
     }
-    .sidebar h1, .sidebar p, .sidebar-nav span {
+    .main-content {
+        margin-left: 0;
+    }
+    .sidebar-header h1,
+    .sidebar p,
+    .sidebar-nav span {
         display: none;
     }
     .sidebar-nav a {
@@ -386,27 +393,10 @@ body {
         margin-right: 0;
     }
     .main-content {
-        margin-left: 60px;
         padding: 10px;
     }
     .page-header h1 {
         font-size: 1.5rem;
-    }
-}
-@media (max-width: 480px) {
-    .sidebar {
-        width: 0;
-    }
-    .main-content {
-        margin-left: 0;
-    }
-    .actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .actions .btn {
-        width: 100%;
-        text-align: center;
     }
 }/* Tab Map Folder style for progress page */
 .tab-folder {

@@ -21,8 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateToggleVisibility() {
         if (window.innerWidth <= 768) {
+            // Mobile: hide sidebar by default
             sidebarToggle.style.display = 'block';
+            sidebar.style.left = '-240px';
+            mainContent.style.marginLeft = '0';
         } else {
+            // Desktop: show sidebar
             sidebarToggle.style.display = 'none';
             sidebar.style.left = '0';
             mainContent.style.marginLeft = '240px';
@@ -30,10 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     sidebarToggle.addEventListener('click', function() {
-        if (sidebar.style.left === '0px' || sidebar.style.left === '') {
+        if (sidebar.style.left === '0px') {
+            // Hide sidebar
             sidebar.style.left = '-240px';
             mainContent.style.marginLeft = '0';
         } else {
+            // Show sidebar
             sidebar.style.left = '0';
             mainContent.style.marginLeft = '240px';
         }
